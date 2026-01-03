@@ -3,6 +3,7 @@ package hero;
 public abstract class Hero {
 
     private TypeHero typeHero;
+    private Weapon typeWeapon;
     private String name;
     private int maxHP;
     private int currentHP; //текущее HP
