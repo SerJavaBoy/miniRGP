@@ -1,7 +1,6 @@
 package hero;
 
-public enum Weapon {
-    SPELL,
-    SWORD,
-    CROSSBOW
+public class Weapon<T extends Hero> {
+
+
 }
