@@ -1,6 +1,6 @@
 package hero;
 
-public class Weapon<T extends Hero> {
+public class Weapon {
 
 
 }
