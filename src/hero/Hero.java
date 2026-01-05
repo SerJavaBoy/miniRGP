@@ -1,8 +1,10 @@
 package hero;
 
+import enemy.Enemy;
+
 public abstract class Hero {
 
-    private Weapon typeWeapon;
+    private Weapon weapon;
     private String name;
     private int maxHP;
     private int currentHP; //текущее HP
@@ -10,7 +12,7 @@ public abstract class Hero {
 
 
     public Hero(Weapon typeWeapon, String name, int maxHP, int startArmor) {
-        this.typeWeapon = typeWeapon;
+        this.weapon = typeWeapon;
         this.name = name;
         this.maxHP = maxHP;
         this.startArmor = startArmor;
@@ -26,8 +28,13 @@ public abstract class Hero {
 
     }
 
-    public Weapon getTypeWeapon() {
-        return typeWeapon;
+    public void causeDamage(Enemy enemy){
+        enemy.setCurrentHP(enemy.getCurrentHP()-weapon.getDamageDealt());
+    }
+
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 
     public String getName() {
@@ -49,11 +56,15 @@ public abstract class Hero {
     @Override
     public String toString() {
         return "Hero{" +
-                "typeWeapon=" + typeWeapon +
+                "typeWeapon=" + weapon +
                 ", name='" + name + '\'' +
                 ", maxHP=" + maxHP +
                 ", currentHP=" + currentHP +
                 ", startArmor=" + startArmor +
                 '}';
+    }
+
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
     }
 }
