@@ -1,8 +1,11 @@
 package hero;
 
-public class Barbarian extends Hero{
+import hero.Weapon.Weapon;
+import hero.equipment.Armor;
 
-    public Barbarian(Weapon typeWeapon, String name, int maxHP, int startArmor) {
-        super(typeWeapon, name, maxHP, startArmor);
+public class Barbarian extends Hero<Barbarian>{
+
+    public Barbarian(String name, int maxHP, Weapon<Barbarian> weapon, Armor<Barbarian> armor) {
+        super(name, maxHP, weapon, armor);
     }
 }

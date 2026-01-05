@@ -2,7 +2,7 @@ package enemy;
 
 import hero.Hero;
 
-public abstract class Enemy {
+public abstract class Enemy<E extends Enemy<E>> {
 
     private String name;
     private int maxHP;
@@ -23,14 +23,10 @@ public abstract class Enemy {
         return currentHP > 0;
     }
 
-    public void takeDamage(int damage) { // получать урон
-        this.currentHP -= damage;
-
+    public void takeDamage(Hero<? extends Hero> hero) {
+                this.currentHP = Math.max(0, currentHP - hero.getWeapon().getDamageDealt());
     }
 
-    public void causeDamage(Hero hero) {
-        hero.setCurrentHP(hero.getCurrentHP()-this.impactForce);
-    }
 
     public String getName() {
         return name;

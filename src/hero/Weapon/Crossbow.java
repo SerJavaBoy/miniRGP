@@ -1,6 +1,8 @@
-package hero;
+package hero.Weapon;
 
-public class Crossbow<Archer> extends Weapon<hero.Archer> {
+import hero.Archer;
+
+public class Crossbow extends Weapon<Archer> {
     public Crossbow(String name, int damageDealt) {
         super(name, damageDealt);
     }

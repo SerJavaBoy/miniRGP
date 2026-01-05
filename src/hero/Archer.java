@@ -1,8 +1,11 @@
 package hero;
 
-public class Archer extends Hero{
+import hero.Weapon.Weapon;
+import hero.equipment.Armor;
 
-    public Archer(Weapon typeWeapon, String name, int maxHP, int startArmor) {
-        super(typeWeapon, name, maxHP, startArmor);
+public class Archer extends Hero<Archer>{
+
+    public Archer(String name, int maxHP, Weapon<Archer> weapon, Armor<Archer> armor) {
+        super(name, maxHP, weapon, armor);
     }
 }

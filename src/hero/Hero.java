@@ -1,70 +1,42 @@
 package hero;
 
 import enemy.Enemy;
+import hero.Weapon.Weapon;
+import hero.equipment.Armor;
 
-public abstract class Hero {
+public abstract class Hero<H extends Hero<H>> {
+    private Weapon<H> weapon;     // <-- теперь НЕ raw, а типизировано
+    private final String name;
+    private final int maxHP;
+    private int currentHP;
+    private Armor<H> armor; // может быть null или “базовая броня”
 
-    private Weapon weapon;
-    private String name;
-    private int maxHP;
-    private int currentHP; //текущее HP
-    private int startArmor;
-
-
-    public Hero(Weapon typeWeapon, String name, int maxHP, int startArmor) {
-        this.weapon = typeWeapon;
+    public Hero(String name, int maxHP, Weapon<H> weapon, Armor<H> armor) {
         this.name = name;
         this.maxHP = maxHP;
-        this.startArmor = startArmor;
-        this.currentHP = startArmor+ maxHP;
+        this.weapon = weapon;
+        this.armor = armor;
+        this.currentHP = maxHP;
     }
 
-    public boolean isLive(){
-        return currentHP > 0;
-    }
-
-    public void takeDamage(int damage){ // получать урон
-        this.currentHP -= damage;
-
-    }
-
-    public void causeDamage(Enemy enemy){
-        enemy.setCurrentHP(enemy.getCurrentHP()-weapon.getDamageDealt());
-    }
-
-
-    public Weapon getWeapon() {
+    public Weapon<H> getWeapon() {
         return weapon;
     }
 
-    public String getName() {
-        return name;
+    // Важно: сеттер оружия тоже типизирован
+    public void equip(Weapon<H> weapon) {
+        this.weapon = weapon;
     }
 
-    public int getMaxHP() {
-        return maxHP;
+    public String getName() { return name; }
+    public int getCurrentHP() { return currentHP; }
+
+    public void takeDamage(Enemy<? extends Enemy> enemy) {
+       int effectiveDamage = Math.max(0, enemy.getImpactForce() - armor.getDefense());
+        this.currentHP = Math.max(0, currentHP - effectiveDamage);
     }
 
-    public int getCurrentHP() {
-        return currentHP;
-    }
-
-    public int getStartArmor() {
-        return startArmor;
-    }
-
-    @Override
-    public String toString() {
-        return "Hero{" +
-                "typeWeapon=" + weapon +
-                ", name='" + name + '\'' +
-                ", maxHP=" + maxHP +
-                ", currentHP=" + currentHP +
-                ", startArmor=" + startArmor +
-                '}';
-    }
-
-    public void setCurrentHP(int currentHP) {
-        this.currentHP = currentHP;
+    public boolean isLive() {
+        return currentHP > 0;
     }
 }
